@@ -1,6 +1,6 @@
 <?php
 if (!isset($_POST['id'])) {
-    header('location:index.php');
+    header('location:../index.php');
 } else {
     include './procesos/conexion.php';
     $id = $_POST['id'];

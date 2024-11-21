@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION['id_prof'])) {
+    header("location:../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

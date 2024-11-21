@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION['id_prof'])) {
+    header("location:../../index.php");
+}
 include './conexion.php';
 $id_alumno = $_POST['id'];
 try {
