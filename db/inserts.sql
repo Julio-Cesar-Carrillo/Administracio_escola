@@ -5,7 +5,6 @@ INSERT INTO tbl_roles (nom_rol) VALUES
 ('Tutor'),
 ('Estudiante');
 
-
 INSERT INTO tbl_profesores (nom_prof, cognom1_prof, cognom2_prof, email_prof, rol_prof, pwd_prof) VALUES 
 ('Juan', 'Pérez', 'López', 'juan.perez@escuela.com', 2, '$2y$10$9YAaDvpj8IDI7WRNVxVq6uYzMnCaUWDGMlU6LS.jv6dgpWcmqcswS'),
 ('María', 'García', NULL, 'maria.garcia@escuela.com', 2, '$2y$10$9YAaDvpj8IDI7WRNVxVq6uYzMnCaUWDGMlU6LS.jv6dgpWcmqcswS'),

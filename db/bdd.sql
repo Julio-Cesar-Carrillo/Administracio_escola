@@ -4,6 +4,11 @@ create database db_escuela;
 
 use db_escuela;
 
+CREATE TABLE tbl_roles(
+    id_rol INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nom_rol VARCHAR(30) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+
 CREATE TABLE tbl_profesores(
     id_prof INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nom_prof VARCHAR(30) NOT NULL,
@@ -12,11 +17,6 @@ CREATE TABLE tbl_profesores(
     email_prof VARCHAR(100) NOT NULL,
     rol_prof INT NOT NULL,
     pwd_prof VARCHAR(100) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
-
-CREATE TABLE tbl_roles(
-    id_rol INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nom_rol VARCHAR(30) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
 
 CREATE TABLE tbl_cursos (
@@ -40,7 +40,7 @@ CREATE TABLE tbl_alumnos(
 CREATE TABLE tbl_materias (
     id_materia INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_curso INT NOT NULL,
-    nom_materia VARCHAR(25) NOT NULL
+    nom_materia VARCHAR(50) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
 
 CREATE TABLE tbl_notas (
@@ -53,7 +53,7 @@ CREATE TABLE tbl_notas (
 ALTER TABLE
     tbl_profesores
 ADD
-    CONSTRAINT fk_profesor_roles FOREIGN KEY (id_prof) REFERENCES tbl_roles(id_rol);
+    CONSTRAINT fk_profesor_roles FOREIGN KEY (rol_prof) REFERENCES tbl_roles(id_rol);
 
 ALTER TABLE
     tbl_cursos
@@ -73,7 +73,7 @@ ADD
 ALTER TABLE
     tbl_notas
 ADD
-    CONSTRAINT fk_alumno_nota FOREIGN KEY (id_alumno) REFERENCES tbl_alumnos(id_alumno);
+    CONSTRAINT fk_nota_nota FOREIGN KEY (id_alumno) REFERENCES tbl_alumnos(id_alumno);
 
 ALTER TABLE
     tbl_notas
