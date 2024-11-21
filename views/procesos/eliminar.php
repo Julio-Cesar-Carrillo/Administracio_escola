@@ -19,6 +19,7 @@ try {
     mysqli_stmt_bind_param($stmt, "i", $id_alumno);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    header('Location: ../');
 
     // Commit de la transacción
     mysqli_commit($conn);

@@ -22,6 +22,7 @@ try {
     mysqli_commit($conn);
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+    header('Location: ../');
 } catch (Exception $e) {
     mysqli_rollback($conn);
     echo "Error: " . $e->getMessage();
