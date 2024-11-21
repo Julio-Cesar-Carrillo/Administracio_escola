@@ -4,6 +4,11 @@ create database db_escuela;
 
 use db_escuela;
 
+CREATE TABLE tbl_roles(
+    id_rol INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nom_rol VARCHAR(30) NOT NULL
+);
+
 CREATE TABLE tbl_profesores(
     id_prof INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nom_prof VARCHAR(30) NOT NULL,
@@ -12,19 +17,20 @@ CREATE TABLE tbl_profesores(
     email_prof VARCHAR(100) NOT NULL,
     rol_prof INT NOT NULL,
     pwd_prof VARCHAR(100) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+);
 
-CREATE TABLE tbl_roles(
-    id_rol INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nom_rol VARCHAR(30) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+ALTER TABLE
+    tbl_cursos
+ADD
+    CONSTRAINT fk_profesor_curso FOREIGN KEY (id_profe) REFERENCES tbl_profesores(id_prof);
+
 
 CREATE TABLE tbl_cursos (
     id_curso INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     codi_curso VARCHAR(5) NOT NULL,
     nom_curso VARCHAR(25) NULL,
     id_profe INT NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+);
 
 CREATE TABLE tbl_alumnos(
     id_alumno INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -35,30 +41,27 @@ CREATE TABLE tbl_alumnos(
     telf_alu VARCHAR(9) NOT NULL,
     email_alu VARCHAR(50) NOT NULL,
     id_curso INT NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+);
 
 CREATE TABLE tbl_materias (
     id_materia INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_curso INT NOT NULL,
     nom_materia VARCHAR(25) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+);
 
 CREATE TABLE tbl_notas (
     id_nota INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_alumno INT NOT NULL,
     id_materia INT NOT NULL,
     nota decimal(5, 2) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
+);
 
 ALTER TABLE
     tbl_profesores
 ADD
     CONSTRAINT fk_profesor_roles FOREIGN KEY (id_prof) REFERENCES tbl_roles(id_rol);
 
-ALTER TABLE
-    tbl_cursos
-ADD
-    CONSTRAINT fk_profesor_curso FOREIGN KEY (id_profe) REFERENCES tbl_profesores(id_prof);
+
 
 ALTER TABLE
     tbl_alumnos
