@@ -79,6 +79,6 @@ if (!isset($_SESSION['id_prof'])) {
 
     </html>
 <?php
-
+        mysqli_stmt_close($stmt);
 }
 ?>
