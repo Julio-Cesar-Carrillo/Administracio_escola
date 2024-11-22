@@ -15,6 +15,7 @@ if (!isset($_SESSION['id_prof'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Alumnos</title>
+        <script src="../js/validaciones.js"></script>
         <link rel="stylesheet" href="./css/styles.css">
     </head>
 
@@ -54,7 +55,7 @@ if (!isset($_SESSION['id_prof'])) {
                         <input type="text" name="telf_alu" value="<?php echo $dato['telf_alu']; ?>">
                     </div>
                     <div>
-                        <label for="email_alu">cognom2_alu</label>
+                        <label for="email_alu">email_alu</label>
                         <input type="text" name="email_alu" value="<?php echo $dato['email_alu']; ?>">
                     </div>
                     <div>
