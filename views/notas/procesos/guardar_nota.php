@@ -21,6 +21,6 @@ if (mysqli_stmt_prepare($stmt, $sql)) {
 }
 
 // Redirigir a index.php dentro de la carpeta notas
-header('Location: ../index.php');
+header('Location: ../listado.php');
 exit;
 ?>
