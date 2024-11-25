@@ -1,121 +1,190 @@
 <?php
-
 session_start();
 if (!isset($_SESSION['id_prof'])) {
-    header("location:../index.php");
-} else {
-    include './procesos/conexion.php';
-
-?>
-    <!DOCTYPE html>
-    <html lang="es">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Alumnos</title>
-        <link rel="stylesheet" href="./css/styles.css">
-    </head>
-
-    <body>
-        <div class="container">
-            <h1>Bienvenido, <?php
-                            echo $_SESSION['nom_prof'];
-                            ?>!</h1>
-        </div>
-
-        <div>
-            <form action="" method="post">
-                <input type="text" name="nom_alu" value="<?php
-                                                            if (isset($_POST['nom_alu'])) {
-                                                                echo $_POST['nom_alu'];
-                                                            }
-                                                            ?>">
-                <input type="text" name="cognom1_alu" value="<?php
-                                                                if (isset($_POST['cognom1_alu'])) {
-                                                                    echo $_POST['cognom1_alu'];
-                                                                }
-                                                                ?>">
-                <select name="curso">
-                    <option value="">Selecciona un curso</option>
-                    <?php
-                    include './datos/cursos.php';
-
-                    foreach ($cursos as $curso) {
-                    ?>
-                        <option value="<?php echo $curso['id_curso']; ?>" <?php echo isset($_POST['curso']) && $_POST['curso'] === $curso['id_curso'] ? "selected" : ""  ?>><?php echo $curso['nom_curso']; ?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-                <button type="submit">Buscar</button>
-                <button><a href="./index.php" style="text-decoration: none; color:black;">Limpiar filtros</a></button>
-                <a type="button" href="./crear_alumno.php" style="text-decoration: none; color:black;">Crear alumno</a>
-            </form>
-
-        </div>
-
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apllidos</th>
-                        <th>Curso</th>
-                        <th>Notas</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $sql = "SELECT a.*, c.nom_curso FROM tbl_alumnos a INNER JOIN tbl_cursos c ON a.id_curso=c.id_curso WHERE 1=1";
-                    if (!empty($_POST['nom_alu'])) {
-                        $filtronombre = $_POST['nom_alu'];
-                        $sql .= " AND a.nom_alu LIKE '%$filtronombre%'";
-                    }
-                    if (!empty($_POST['cognom1_alu'])) {
-                        $filtroapellido1 = $_POST['cognom1_alu'];
-                        $sql .= " AND a.cognom1_alu LIKE '%$filtroapellido1%'";
-                    }
-                    if (!empty($_POST['curso'])) {
-                        $filtrocurso = $_POST['curso'];
-                        $sql .= " AND c.id_curso = $filtrocurso";
-                    }
-                    $alumnos = mysqli_query($conn, $sql);
-                    foreach ($alumnos as $alumno) {
-                    ?>
-                        <tr>
-                            <td><?php echo $alumno['nom_alu']; ?></td>
-                            <td><?php echo $alumno['cognom1_alu']; ?>
-                                <?php echo $alumno['cognom2_alu']; ?></td>
-                            <td><?php echo $alumno['nom_curso']; ?></td>
-                            <td>
-                                <form action="./notas/procesos/index.php" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $alumno['id_alumno']; ?>">
-                                    <button type="submit">Notas</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="./editar.php" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $alumno['id_alumno']; ?>">
-                                    <button type="submit">Editar</button>
-                                </form>
-                                <form action="./procesos/eliminar.php" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $alumno['id_alumno']; ?>">
-                                    <button type="submit">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </body>
-
-    </html>
-<?php
-
+    header("Location: ../index.php");
+    exit();
 }
+include './procesos/conexion.php';
 ?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-5">
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Sistema de Alumnos</a>
+                <div class="d-flex align-items-center">
+                    <span class="navbar-text text-white me-3">¡Hola, <?php echo htmlspecialchars($_SESSION['nom_prof']); ?>!</span>
+                    <form action="./procesos/logout.php" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Filtros de búsqueda -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form action="" method="get" class="row g-3">
+                    <div class="col-md-2">
+                        <label for="num_resultados" class="form-label">Resultados por página:</label>
+                        <select name="num_resultados" id="num_resultados" class="form-select">
+                            <option value="5" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 5 ? "selected" : ""; ?>>5</option>
+                            <option value="10" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 10 ? "selected" : ""; ?>>10</option>
+                            <option value="15" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 15 ? "selected" : ""; ?>>15</option>
+                            <option value="20" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 20 ? "selected" : ""; ?>>20</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="nom_alu" class="form-label">Nombre:</label>
+                        <input type="text" name="nom_alu" id="nom_alu" class="form-control" value="<?php echo isset($_GET['nom_alu']) ? htmlspecialchars($_GET['nom_alu']) : ''; ?>" placeholder="Nombre">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cognom1_alu" class="form-label">Primer apellido:</label>
+                        <input type="text" name="cognom1_alu" id="cognom1_alu" class="form-control" value="<?php echo isset($_GET['cognom1_alu']) ? htmlspecialchars($_GET['cognom1_alu']) : ''; ?>" placeholder="Primer apellido">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="curso" class="form-label">Curso:</label>
+                        <select name="curso" id="curso" class="form-select">
+                            <option value="">Seleccionar curso</option>
+                            <?php
+                            include './datos/cursos.php';
+                            foreach ($cursos as $curso) {
+                                $selected = isset($_GET['curso']) && $_GET['curso'] == $curso['id_curso'] ? 'selected' : '';
+                                echo '<option value="' . htmlspecialchars($curso['id_curso']) . '" ' . $selected . '>' . htmlspecialchars($curso['nom_curso']) . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-success me-2">Buscar</button>
+                        <a href="./index.php" class="btn btn-secondary me-2">Limpiar</a>
+                        <a href="./crear_alumno.php" class="btn btn-primary">Nuevo Alumno</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabla de alumnos -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Notas</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $num_resultados = isset($_GET['num_resultados']) ? $_GET['num_resultados'] : 5;
+
+                        // Consulta para contar registros totales
+                        $sql = "SELECT COUNT(*) as total_alumnos 
+                                FROM tbl_alumnos a 
+                                INNER JOIN tbl_cursos c ON a.id_curso = c.id_curso 
+                                WHERE 1=1";
+
+                        if (!empty($_GET['nom_alu'])) {
+                            $filtronombre = mysqli_real_escape_string($conn, $_GET['nom_alu']);
+                            $sql .= " AND a.nom_alu LIKE '%$filtronombre%'";
+                        }
+                        if (!empty($_GET['cognom1_alu'])) {
+                            $filtroapellido1 = mysqli_real_escape_string($conn, $_GET['cognom1_alu']);
+                            $sql .= " AND a.cognom1_alu LIKE '%$filtroapellido1%'";
+                        }
+                        if (!empty($_GET['curso'])) {
+                            $filtrocurso = (int)$_GET['curso'];
+                            $sql .= " AND c.id_curso = $filtrocurso";
+                        }
+
+                        $result = mysqli_query($conn, $sql);
+                        if ($result && $row = mysqli_fetch_assoc($result)) {
+                            $num_total_rows = $row['total_alumnos'];
+
+                            if ($num_total_rows > 0) {
+                                $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+                                $page = max(1, $page);
+                                $start = ($page - 1) * $num_resultados;
+                                $total_pages = ceil($num_total_rows / $num_resultados);
+
+                                $sql = "SELECT a.*, c.nom_curso 
+                                        FROM tbl_alumnos a 
+                                        INNER JOIN tbl_cursos c ON a.id_curso = c.id_curso 
+                                        WHERE 1=1 ";
+
+                                if (!empty($_GET['nom_alu'])) {
+                                    $sql .= " AND a.nom_alu LIKE '%$filtronombre%'";
+                                }
+                                if (!empty($_GET['cognom1_alu'])) {
+                                    $sql .= " AND a.cognom1_alu LIKE '%$filtroapellido1%'";
+                                }
+                                if (!empty($_GET['curso'])) {
+                                    $sql .= " AND c.id_curso = $filtrocurso";
+                                }
+
+                                $sql .= " ORDER BY a.id_alumno ASC LIMIT $start, $num_resultados";
+                                $alumnos = mysqli_query($conn, $sql);
+
+                                foreach ($alumnos as $alumno) {
+                        ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($alumno['nom_alu']); ?></td>
+                                        <td><?php echo htmlspecialchars($alumno['cognom1_alu']) . ' ' . htmlspecialchars($alumno['cognom2_alu']); ?></td>
+                                        <td><?php echo htmlspecialchars($alumno['nom_curso']); ?></td>
+                                        <td>
+                                            <form action="./notas/index.php" method="post">
+                                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
+                                                <button type="submit" class="btn btn-info btn-sm">Notas</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="./editar.php" method="post" class="d-inline">
+                                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
+                                                <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                                            </form>
+                                            <form action="./procesos/eliminar.php" method="post" class="d-inline">
+                                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
+                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                        <?php
+                                }
+                            } else {
+                                echo '<tr><td colspan="5" class="text-center">No hay alumnos que mostrar.</td></tr>';
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+
+                <!-- Paginación -->
+                <div class="d-flex justify-content-center">
+                    <?php
+                    if ($num_total_rows > 0) {
+                        for ($i = 1; $i <= $total_pages; $i++) {
+                            echo '<a href="?page=' . $i . '&num_resultados=' . $num_resultados . '" class="btn btn-secondary btn-sm mx-1">' . $i . '</a>';
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

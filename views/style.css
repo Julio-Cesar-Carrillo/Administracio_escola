@@ -1,0 +1,42 @@
+/* General */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Tabla */
+.table-dark {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 576px) {
+    .navbar-text {
+        text-align: left;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3),
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        display: none; 
+    }
+}

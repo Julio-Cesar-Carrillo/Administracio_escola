@@ -2,7 +2,7 @@
 
 $servidor = "localhost";
 $user = "root";
-$pass = "Agustin51";
+$pass = "";
 $db = "db_escuela";
 
 try {
