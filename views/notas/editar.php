@@ -1,3 +1,4 @@
+
 <?php
 if (!isset($_POST['id'])) {
     header('Location: vernotas.php');

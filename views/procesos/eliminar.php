@@ -25,6 +25,7 @@ try {
 
     // Commit de la transacción
     mysqli_commit($conn);
+    header('location:../');
 } catch (Exception $e) {
     mysqli_rollback($conn);
     echo $e->getMessage();
