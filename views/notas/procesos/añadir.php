@@ -3,8 +3,8 @@ if (!isset($_GET['id'])) {
     die("ID de alumno no especificado.");
 }
 
-include 'conexion.php'; 
-$id = $_GET['id']; 
+include 'conexion.php';
+$id = $_GET['id'];
 
 // Verificar si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,11 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_bind_param($stmt, "iis", $id_alumno, $id_materia, $nota);
             $execute = mysqli_stmt_execute($stmt);
 
-            // Si la inserción es exitosa, redirigir a listado.php
+            
             if ($execute) {
-                echo "Nota guardada con éxito.";
-                header('Refresh: 2; URL=listado.php?id=' . $id_alumno); // Redirige después de 2 segundos
-                exit(); // Terminar el script para evitar que se ejecute más código
+                mysqli_stmt_close($stmt);
+                mysqli_close($conn);
+
+                header('Location: index.php');
+                exit(); 
             } else {
                 echo "Error al guardar la nota.";
             }
@@ -49,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_close($conn);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div>
         <h2>Añadir nota para el alumno</h2>
-        <form action="añadir.php?id=<?php echo $id; ?>" method="post"> <!-- Enviar el formulario a la misma página -->
+        <form action="añadir.php?id=<?php echo $id; ?>" method="post">
             <input type="hidden" name="id_alumno" value="<?php echo $id; ?>">
 
             <label for="materia">Materia:</label>
@@ -91,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="number" step="0.01" name="nota" id="nota" required min="0" max="10">
 
             <button type="submit">Guardar Nota</button>
-            <a href="listado.php?id=<?php echo $id; ?>"><button type="button">Cancelar</button></a>
         </form>
     </div>
 </body>
