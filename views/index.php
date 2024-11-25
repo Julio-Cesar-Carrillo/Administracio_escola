@@ -27,7 +27,7 @@ include './procesos/conexion.php';
                     <span class="navbar-text text-white me-3">¡Hola, <?php echo htmlspecialchars($_SESSION['nom_prof']); ?>!</span>
                     <form action="./procesos/logout.php" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                    </form>
+                    </form> 
                 </div>
             </div>
         </nav>

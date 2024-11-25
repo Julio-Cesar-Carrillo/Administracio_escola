@@ -37,6 +37,6 @@ body {
     .table td:nth-child(3),
     .table th:nth-child(2),
     .table td:nth-child(2) {
-        display: none;
+        display: none; 
     }
 }
