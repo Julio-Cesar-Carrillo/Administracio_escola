@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 mysqli_stmt_close($stmt);
                 mysqli_close($conn);
 
-                header('Location: index.php');
+                header('Location: http://localhost/adminescola/Administracio_escola/views/notas/procesos/index.php?id=' . $id_alumno);
                 exit(); 
             } else {
                 echo "Error al guardar la nota.";
