@@ -90,7 +90,7 @@ if (!isset($_SESSION['id_prof'])) {
                                 <?php echo $alumno['cognom2_alu']; ?></td>
                             <td><?php echo $alumno['nom_curso']; ?></td>
                             <td>
-                                <form action="./notas/index.php" method="post">
+                                <form action="./notas/procesos/listado.php" method="post">
                                     <input type="hidden" name="id" value="<?php echo $alumno['id_alumno']; ?>">
                                     <button type="submit">Notas</button>
                                 </form>
