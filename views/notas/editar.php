@@ -46,6 +46,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nueva_nota'])) {
         $sql_update = "UPDATE tbl_notas SET nota = ? WHERE id_materia = ?";
         $stmt_update = mysqli_stmt_init($conn);
 
+    ?>
+
+
+    <form action="../notas/vernotas.php" method="POST" name="formulario">
+            <input type="hidden" name="id" value="<?php echo $id ?>">
+    </form>
+
+
+    <?php
+
         if (!mysqli_stmt_prepare($stmt_update, $sql_update)) {
             echo "Error al preparar la consulta de actualización.";
             exit();
@@ -80,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nueva_nota'])) {
 
 <body>
     <h1>Editar Nota</h1>
+
     <form action="" method="post">
         <label for="materia">Materia:</label>
         <input type="text" name="materia" id="materia" value="<?php echo htmlspecialchars($nota_data['nom_materia']); ?>" readonly>
