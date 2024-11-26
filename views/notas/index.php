@@ -72,15 +72,19 @@ if (!isset($_POST['id'])) {
                                         <td><?php echo htmlspecialchars($nota['nom_materia']); ?></td>
                                         <td><?php echo htmlspecialchars($nota['nota']); ?></td>
                                         <td>
-                                            <form action="./editar.php" method="post" class="d-inline">
-                                                <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($nota['id_nota']); ?>">
-                                                <button type="submit" class="btn btn-info btn-sm">Editar</button>
-                                            </form>
-                                            <form action="./procesos/eliminar.php" method="post" class="d-inline">
-                                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($nota['id_materia']); ?>">
-                                                <input type="hidden" name="alumno" value="<?php echo htmlspecialchars($id); ?>">
-                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                            </form>
+                                        <form action="editar.php" method="post" class="d-inline">
+    <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($nota['id_nota']); ?>">
+    <input type="hidden" name="alumno" value="<?php echo htmlspecialchars($id); ?>"> <!-- Aquí pasas el id del alumno -->
+    <button type="submit" class="btn btn-info btn-sm">Editar</button>
+</form>
+
+                                            <form action="eliminar.php" method="post" class="d-inline">
+    <!-- Enviar el id de la nota (id_nota) y el id del alumno -->
+    <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($nota['id_nota']); ?>">
+    <input type="hidden" name="alumno" value="<?php echo htmlspecialchars($id); ?>">
+    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+</form>
+
                                         </td>
                                     </tr>
                             <?php
