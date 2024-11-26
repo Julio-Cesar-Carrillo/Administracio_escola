@@ -43,7 +43,6 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
         </nav>
 
         <div class="container my-5">
-            <!-- Información del alumno -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Información del Alumno</h5>
