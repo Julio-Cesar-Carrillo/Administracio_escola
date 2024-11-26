@@ -10,8 +10,8 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno']) || !isset($_POST['n
     $nota = $_POST['nota'];
 
     // Validar que la nota esté en el rango permitido
-    if ($nota < 0 || $nota > 100) {
-        echo "La nota debe estar entre 0 y 100.";
+    if ($nota < 0 || $nota > 10) {
+        echo "La nota debe estar entre 0 y 10.";
         exit();
     }
 
