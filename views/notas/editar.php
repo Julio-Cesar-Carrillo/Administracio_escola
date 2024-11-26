@@ -1,7 +1,7 @@
 
 <?php
 if (!isset($_POST['id'])) {
-    header('Location: vernotas.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -11,7 +11,7 @@ include './procesos/conexion.php';
 $id_materia = filter_var($_POST['id'], FILTER_VALIDATE_INT);
 
 if (!$id_materia) {
-    header('Location: vernotas.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nueva_nota'])) {
     ?>
 
 
-    <form action="../notas/vernotas.php" method="POST" name="formulario">
+    <form action="../notas/index.php" method="POST" name="formulario">
             <input type="hidden" name="id" value="<?php echo $id ?>">
     </form>
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nueva_nota'])) {
 
         if (mysqli_stmt_affected_rows($stmt_update) > 0) {
             mysqli_stmt_close($stmt_update);
-            header('Location: vernotas.php?exito=1'); // Bandera para mostrar un mensaje de éxito
+            header('Location: index.php?exito=1'); // Bandera para mostrar un mensaje de éxito
             exit();
         } else {
             echo "No se pudo actualizar la nota o no hubo cambios.";
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nueva_nota'])) {
         <button type="submit">Guardar</button>
     </form>
 
-    <a href="vernotas.php">Cancelar</a>
+    <a href="index.php">Cancelar</a>
 </body>
 
 </html>

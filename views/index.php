@@ -146,7 +146,7 @@ include './procesos/conexion.php';
                                         <td><?php echo htmlspecialchars($alumno['cognom1_alu']) . ' ' . htmlspecialchars($alumno['cognom2_alu']); ?></td>
                                         <td><?php echo htmlspecialchars($alumno['nom_curso']); ?></td>
                                         <td>
-                                            <form action="./notas/vernotas.php" method="post">
+                                            <form action="./notas/index.php" method="post">
                                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
                                                 <button type="submit" class="btn btn-info btn-sm">Notas</button>
                                             </form>
