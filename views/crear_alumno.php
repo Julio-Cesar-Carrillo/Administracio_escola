@@ -5,36 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear alumno</title>
+    <script src="../js/validaciones.js"></script>
 </head>
 
 <body>
     <form action="./procesos/crear_alumno.php" method="post">
         <div>
-            <label for="dni_alu">dni_alu</label>
-            <input type="text" name="dni_alu">
+            <label for="dni_alu">DNI:</label>
+            <input type="text" name="dni_alu" required>
         </div>
         <div>
-            <label for="nom_alu">nom_alu</label>
-            <input type="text" name="nom_alu">
+            <label for="nom_alu">Nombre:</label>
+            <input type="text" name="nom_alu" required>
         </div>
         <div>
-            <label for="cognom1_alu">cognom1_alu</label>
-            <input type="text" name="cognom1_alu">
+            <label for="cognom1_alu">Primer Apellido:</label>
+            <input type="text" name="cognom1_alu" required>
         </div>
         <div>
-            <label for="cognom2_alu">cognom2_alu</label>
+            <label for="cognom2_alu">Segundo Apellido:</label>
             <input type="text" name="cognom2_alu">
         </div>
         <div>
-            <label for="telf_alu">telf_alu</label>
-            <input type="text" name="telf_alu">
+            <label for="telf_alu">Teléfono:</label>
+            <input type="text" name="telf_alu" required>
         </div>
         <div>
-            <label for="email_alu">email_alu</label>
-            <input type="text" name="email_alu">
+            <label for="email_alu">Correo Electrónico:</label>
+            <input type="text" name="email_alu" required>
         </div>
         <div>
-            <select name="id_curso">
+            <label for="id_curso">Curso:</label>
+            <select name="id_curso" required>
+                <option value="">Selecciona un curso</option>
                 <?php
                 include './procesos/conexion.php';
                 include './datos/cursos.php';
@@ -47,7 +50,7 @@
             </select>
         </div>
         <button type="submit">Crear</button>
-        <a type="button" href="./index.php" style="text-decoration: none; color:black;">Volver</a>
+        <a href="./index.php" style="text-decoration: none; color:black;">Volver</a>
     </form>
 </body>
 

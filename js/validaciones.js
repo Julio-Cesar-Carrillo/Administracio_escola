@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
         let isFormValid = true;
 
+        // Validar cada campo
         if (dniInput) {
             isFormValid = validateDNI(dniInput) && isFormValid;
         }
@@ -118,8 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
             isFormValid = validateEmail(emailInput) && isFormValid;
         }
 
+        // Detener el envío si hay errores
         if (!isFormValid) {
-            event.preventDefault(); // Evita el envío si hay errores
+            event.preventDefault();
         }
     });
 
