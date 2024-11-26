@@ -13,6 +13,7 @@ $id = $_POST['id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Nota</title>
+    <script href="valida.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         nav {
@@ -27,6 +28,10 @@ $id = $_POST['id'];
             margin-top: 20px;
             /* Separación del formulario respecto al nav */
         }
+        .error-message {
+    color: red;
+    font-size: 14px;
+}
     </style>
 </head>
 
@@ -88,7 +93,8 @@ $id = $_POST['id'];
                     </div>
                     <div class="mb-3">
                         <label for="nota" class="form-label">Nota:</label>
-                        <input type="number" step="0.01" name="nota" id="nota" min="0" max="10" class="form-control" required>
+                        <input type="number" step="0.01" name="nota" id="nota" class="form-control" required>
+                        <span id="error-pregunta" style="color: red;"></span> 
                     </div>
                     <button type="submit" class="btn btn-success w-100">Crear Nota</button>
                 </form>
