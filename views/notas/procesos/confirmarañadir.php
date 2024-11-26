@@ -13,6 +13,7 @@ try {
         mysqli_close($conn);
 ?>
         <form action="../index.php" method="POST" name="formulario">
+            <input type="hidden" name="nom_alu" value="<?php echo $_POST['nom_alu']; ?>">
             <input type="hidden" name="id" value="<?php echo $id ?>">
         </form>
         <script language="JavaScript">
