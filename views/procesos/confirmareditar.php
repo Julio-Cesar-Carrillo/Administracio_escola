@@ -1,7 +1,4 @@
 <?php
-if (!isset($_SESSION['id_prof'])) {
-    header("location:../../index.php");
-}
 
 include './conexion.php';
 
@@ -25,6 +22,7 @@ try {
     mysqli_commit($conn);
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+    header('location:../?num_resultados=5&nom_alu=' . $nom_alu . '&cognom1_alu=' . $cognom1_alu . '&curso=' . $id_curso . '');
 } catch (Exception $e) {
     mysqli_rollback($conn);
     echo "Error: " . $e->getMessage();

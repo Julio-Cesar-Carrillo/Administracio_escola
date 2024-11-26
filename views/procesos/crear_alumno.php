@@ -1,7 +1,4 @@
 <?php
-if (!isset($_SESSION['id_prof'])) {
-    header("location:../../index.php");
-}
 
 include './conexion.php';
 
@@ -13,7 +10,6 @@ $telf_alu = mysqli_real_escape_string($conn, $_POST['telf_alu']);
 $email_alu = mysqli_real_escape_string($conn, $_POST['email_alu']);
 $id_curso = mysqli_real_escape_string($conn, $_POST['id_curso']);
 try {
-
     $sql = "INSERT INTO tbl_alumnos VALUES (NULL,?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $sql);
@@ -21,6 +17,7 @@ try {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+    header('location:../?num_resultados=5&nom_alu=' . $nom_alu . '&cognom1_alu=' . $cognom1_alu . '&curso=' . $id_curso . '');
 } catch (Exception $e) {
     mysqli_rollback($conn);
     echo "Error: " . $e->getMessage();

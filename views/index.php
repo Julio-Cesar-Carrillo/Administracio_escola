@@ -19,15 +19,14 @@ include './procesos/conexion.php';
 
 <body>
     <div class="container my-5">
-        <!-- Barra de navegación -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Sistema de Alumnos</a>
+                <a class="navbar-brand" href="./">Sistema de Alumnos</a>
                 <div class="d-flex align-items-center">
                     <span class="navbar-text text-white me-3">¡Hola, <?php echo htmlspecialchars($_SESSION['nom_prof']); ?>!</span>
                     <form action="./procesos/logout.php" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                    </form> 
+                    </form>
                 </div>
             </div>
         </nav>
@@ -147,12 +146,14 @@ include './procesos/conexion.php';
                                         <td><?php echo htmlspecialchars($alumno['nom_curso']); ?></td>
                                         <td>
                                             <form action="./notas/index.php" method="post">
+                                                <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($alumno['nom_alu']); ?>">
                                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
                                                 <button type="submit" class="btn btn-info btn-sm">Notas</button>
                                             </form>
                                         </td>
                                         <td>
                                             <form action="./editar.php" method="post" class="d-inline">
+                                                <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($alumno['nom_alu']); ?>">
                                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
                                                 <button type="submit" class="btn btn-primary btn-sm">Editar</button>
                                             </form>
