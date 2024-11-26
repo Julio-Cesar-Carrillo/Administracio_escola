@@ -7,32 +7,15 @@ $id = $_POST['id'];
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Nota</title>
-    <script href="valida.js"></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        nav {
-            height: 80px;
-            /* Aumentar altura de la barra */
-            display: flex;
-            align-items: center;
-            /* Centrar contenido verticalmente */
-        }
 
-        .form-container {
-            margin-top: 20px;
-            /* Separación del formulario respecto al nav */
-        }
-        .error-message {
-    color: red;
-    font-size: 14px;
-}
-    </style>
 </head>
 
 <body class="bg-light">
@@ -61,17 +44,15 @@ $id = $_POST['id'];
             <!-- Contenido principal -->
             <div class="form-container card shadow-sm p-4 rounded">
                 <h3 class="card-title text-center">Añadir Nota para <?php echo htmlspecialchars($_POST['nom_alu']); ?></h3>
-                <form action="./procesos/confirmarañadir.php" method="post">
+                <form action="./procesos/confirmarañadir.php" method="post" id="frmañadirnota">
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
                     <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
 
-                    <!-- Selección de materia -->
                     <div class="mb-3">
-                        <label for="materia" class="form-label">Materia:</label>
+                        <label for="materia" class="form-label">Materia</label>
                         <select name="id_materia" id="materia" class="form-select">
                             <option value="">Seleccione una materia</option>
                             <?php
-                            // Consultar las materias disponibles
                             $sqlMaterias = "SELECT m.id_materia as materia, m.nom_materia, n.*
                                             FROM tbl_materias m
                                             INNER JOIN tbl_cursos c ON m.id_curso = c.id_curso
@@ -90,11 +71,13 @@ $id = $_POST['id'];
                             }
                             ?>
                         </select>
+                        <span id="error-materia" style="color: red;"></span>
                     </div>
+
                     <div class="mb-3">
-                        <label for="nota" class="form-label">Nota:</label>
-                        <input type="number" step="0.01" name="nota" id="nota" class="form-control" required>
-                        <span id="error-pregunta" style="color: red;"></span> 
+                        <label for="nota" class="form-label">Nota</label>
+                        <input type="text" step="0.01" name="nota" id="nota" class="form-control">
+                        <span id="error-nota" style="color: red;"></span>
                     </div>
                     <button type="submit" class="btn btn-success w-100">Crear Nota</button>
                 </form>
@@ -102,5 +85,6 @@ $id = $_POST['id'];
         </div>
     </div>
 </body>
+<script src="./valida.js"></script>
 
 </html>
