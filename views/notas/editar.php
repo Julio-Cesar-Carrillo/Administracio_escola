@@ -50,14 +50,15 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno'])) {
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h1 class="h4 mb-4">Editar Nota</h1>
-                    <form action="./procesos/actualizar.php" method="post">
+                    <form action="./procesos/actualizar.php" id="frmeditarnota" method="post">
                         <div class="mb-3">
                             <label for="materia" class="form-label">Materia</label>
                             <input type="text" id="materia" class="form-control" value="<?php echo htmlspecialchars($nota['nom_materia']); ?>" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="nota" class="form-label">Nota</label>
-                            <input type="number" name="nota" id="nota" class="form-control" value="<?php echo htmlspecialchars($nota['nota']); ?>" required min="0" max="100" step="0.1">
+                            <input type="text" name="nota" id="nota" class="form-control" value="<?php echo htmlspecialchars($nota['nota']); ?>">
+                            <span id="error-nota" style="color: red;"></span>
                         </div>
                         <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
                         <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($id_nota); ?>">
@@ -75,4 +76,8 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno'])) {
         </div>
     </div>
 </body>
+
+<script src="./validaEditar.js"></script>
+
 </html>
+
