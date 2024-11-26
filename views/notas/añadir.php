@@ -1,7 +1,10 @@
 <?php
 
 session_start();
-
+if (!isset($_POST['id']) && !isset($_POST['id_alumno'])) {
+    header('location:./index.php');
+    exit();
+}
 include './procesos/conexion.php';
 $id = $_POST['id'];
 ?>

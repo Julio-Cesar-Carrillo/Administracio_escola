@@ -73,6 +73,8 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
                                             <td>
                                                 <form action="./editar.php" method="post" class="d-inline">
                                                     <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($nota['id_nota']); ?>">
+                                                    <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
+                                                    <input type="hidden" name="id_alumno" value="<?php echo htmlspecialchars($id); ?>">
                                                     <button type="submit" class="btn btn-info btn-sm">Editar</button>
                                                 </form>
                                                 <form action="./procesos/eliminar.php" method="post" class="d-inline">

@@ -36,9 +36,9 @@ include './procesos/conexion.php';
                     <div class="col-md-2">
                         <label for="num_resultados" class="form-label">Resultados por página:</label>
                         <select name="num_resultados" id="num_resultados" class="form-select">
+                            <option value="3" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 3 ? "selected" : ""; ?>>3</option>
                             <option value="5" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 5 ? "selected" : ""; ?>>5</option>
                             <option value="10" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 10 ? "selected" : ""; ?>>10</option>
-                            <option value="15" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 15 ? "selected" : ""; ?>>15</option>
                             <option value="20" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 20 ? "selected" : ""; ?>>20</option>
                         </select>
                     </div>
@@ -66,7 +66,8 @@ include './procesos/conexion.php';
                     <div class="col-md-12 text-end">
                         <button type="submit" class="btn btn-success me-2">Buscar</button>
                         <a href="./index.php" class="btn btn-secondary me-2">Limpiar</a>
-                        <a href="./crear_alumno.php" class="btn btn-primary">Nuevo Alumno</a>
+                        <a href="./media" class="btn btn-info me-2">Media de notas</a>
+                        <a href="./crear_alumno.php" class="btn btn-primary me-2">Nuevo Alumno</a>
                     </div>
                 </form>
             </div>
@@ -87,7 +88,7 @@ include './procesos/conexion.php';
                     </thead>
                     <tbody>
                         <?php
-                        $num_resultados = isset($_GET['num_resultados']) ? $_GET['num_resultados'] : 5;
+                        $num_resultados = isset($_GET['num_resultados']) ? $_GET['num_resultados'] : 3;
 
                         // Consulta para contar registros totales
                         $sql = "SELECT COUNT(*) as total_alumnos 
