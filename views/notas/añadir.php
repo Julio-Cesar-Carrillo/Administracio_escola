@@ -34,9 +34,7 @@ $id = $_POST['id'];
                             <input type="hidden" name="id" value="<?php echo $id ?>">
                             <button type="submit" class="btn btn-primary me-2 btn-sm">Volver</button>
                         </form>
-                        <form action="./procesos/logout.php" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                        </form>
+                        <a href="../procesos/logout.php" class="btn btn-danger btn-sm">Logout</a>
                     </div>
                 </div>
             </nav>

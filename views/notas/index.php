@@ -1,15 +1,11 @@
 <?php
-if (!isset($_POST['id'])) {
-    header('location:./index.php');
+session_start();
+if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
+    header('location:../index.php');
     exit();
 } else {
     include './procesos/conexion.php';
     $id = $_POST['id'];
-    session_start();
-    // Asume que la sesión ya tiene el nombre del profesor para mostrar
-    if (!isset($_SESSION['nom_prof'])) {
-        $_SESSION['nom_prof'] = 'Profesor Invitado'; // Fallback
-    }
 ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -31,9 +27,7 @@ if (!isset($_POST['id'])) {
                     </span>
                     <div class="d-flex">
                         <a href="../" class="btn btn-primary me-2 btn-sm">Volver</a>
-                        <form action="./procesos/logout.php" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                        </form>
+                        <a href="../procesos/logout.php" class="btn btn-danger btn-sm">Logout</a>
                     </div>
                 </div>
             </nav>
