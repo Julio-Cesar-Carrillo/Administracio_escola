@@ -26,7 +26,15 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno']) || !isset($_POST['n
     mysqli_stmt_bind_param($stmt, "dii", $nota, $id_nota, $id_alumno);
     if (mysqli_stmt_execute($stmt)) {
         // Redirigir al usuario de vuelta a la página principal o de notas
-        header("location:../index.php?mensaje=nota_actualizada");
+        ?>
+        <form action="../index.php" method="POST" name="formulario">
+            <input type="hidden" name="id" value="<?php echo $_POST['id_alumno']; ?>">
+            <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
+        </form>
+        <script language="JavaScript">
+            document.formulario.submit();
+        </script>
+<?php
         exit();
     } else {
         echo "Error al actualizar la nota: " . mysqli_error($conn);

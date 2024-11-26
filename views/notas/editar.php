@@ -59,11 +59,17 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno'])) {
                             <label for="nota" class="form-label">Nota</label>
                             <input type="number" name="nota" id="nota" class="form-control" value="<?php echo htmlspecialchars($nota['nota']); ?>" required min="0" max="100" step="0.1">
                         </div>
+                        <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
                         <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($id_nota); ?>">
                         <input type="hidden" name="id_alumno" value="<?php echo htmlspecialchars($id_alumno); ?>">
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                        <a href="./index.php" class="btn btn-secondary">Cancelar</a>
                     </form>
+
+                    <form action="./" method="post" class="d-inline">
+                            <input type="hidden" name="nom_alu" value="<?php echo $_POST['nom_alu']; ?>">
+                            <input type="hidden" name="id" value="<?php echo $id_alumno ?>">
+                            <button type="submit" class="btn btn-secondary me-2 btn-sm">CANCELAR</button>
+                     </form>
                 </div>
             </div>
         </div>
