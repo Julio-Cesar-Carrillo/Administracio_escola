@@ -12,15 +12,15 @@
     <form action="./procesos/crear_alumno.php" method="post">
         <div>
             <label for="dni_alu">DNI:</label>
-            <input type="text" name="dni_alu" required>
+            <input type="text" name="dni_alu" >
         </div>
         <div>
             <label for="nom_alu">Nombre:</label>
-            <input type="text" name="nom_alu" required>
+            <input type="text" name="nom_alu" >
         </div>
         <div>
             <label for="cognom1_alu">Primer Apellido:</label>
-            <input type="text" name="cognom1_alu" required>
+            <input type="text" name="cognom1_alu" >
         </div>
         <div>
             <label for="cognom2_alu">Segundo Apellido:</label>
@@ -28,15 +28,15 @@
         </div>
         <div>
             <label for="telf_alu">Teléfono:</label>
-            <input type="text" name="telf_alu" required>
+            <input type="text" name="telf_alu" >
         </div>
         <div>
             <label for="email_alu">Correo Electrónico:</label>
-            <input type="text" name="email_alu" required>
+            <input type="text" name="email_alu" >
         </div>
         <div>
             <label for="id_curso">Curso:</label>
-            <select name="id_curso" required>
+            <select name="id_curso" >
                 <option value="">Selecciona un curso</option>
                 <?php
                 include './procesos/conexion.php';
