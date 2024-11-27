@@ -77,7 +77,7 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno'])) {
     </div>
 </body>
 
-<script src="./validaEditar.js"></script>
+<script src="./validaciones/validaEditar.js"></script>
 
 </html>
 

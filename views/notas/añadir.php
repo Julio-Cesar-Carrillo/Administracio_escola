@@ -80,12 +80,17 @@ $id = $_POST['id'];
                         <input type="text" step="0.01" name="nota" id="nota" class="form-control">
                         <span id="error-nota" style="color: red;"></span>
                     </div>
+                    <span id="error-materia" style="color: red;">
+                        <?php
+                        echo isset($_POST['errormateria']) && isset($_POST['errornota']) ? "Comprueba los datos o intentalo más tarde" : "";
+                        ?>
+                    </span>
                     <button type="submit" class="btn btn-success w-100">Crear Nota</button>
                 </form>
             </div>
         </div>
     </div>
 </body>
-<script src="./valida.js"></script>
+<script src="./validaciones/validaañadir.js"></script>
 
 </html>
