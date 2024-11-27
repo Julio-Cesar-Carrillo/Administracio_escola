@@ -6,6 +6,16 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
 } else {
     include './procesos/conexion.php';
     $id = $_POST['id'];
+
+    // Consulta para obtener información del alumno
+    $sqlAlumno = "SELECT dni_alu, nom_alu, cognom1_alu, cognom2_alu, telf_alu, email_alu FROM tbl_alumnos WHERE id_alumno = ?";
+    $stmtAlumno = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmtAlumno, $sqlAlumno);
+    mysqli_stmt_bind_param($stmtAlumno, "i", $id);
+    mysqli_stmt_execute($stmtAlumno);
+    $resultadoAlumno = mysqli_stmt_get_result($stmtAlumno);
+    $infoAlumno = mysqli_fetch_assoc($resultadoAlumno);
+    mysqli_stmt_close($stmtAlumno);
 ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -33,13 +43,42 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
             </nav>
 
             <div class="container my-5">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Información del <?php echo htmlspecialchars($infoAlumno['nom_alu']); ?></h5>
+                        <p><strong>DNI:</strong> <?php echo htmlspecialchars($infoAlumno['dni_alu']); ?></p>
+                        <p><strong>Apellidos:</strong> <?php echo htmlspecialchars($infoAlumno['cognom1_alu'] . " " . $infoAlumno['cognom2_alu']); ?></p>
+                        <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($infoAlumno['telf_alu']); ?></p>
+                        <p><strong>Email:</strong> <?php echo htmlspecialchars($infoAlumno['email_alu']); ?></p>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1 class="h3">Notas de <?php echo $_POST['nom_alu']; ?></h1>
-                    <form action="./añadir.php" method="post">
-                        <input type="hidden" name="nom_alu" value="<?php echo $_POST['nom_alu']; ?>">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <button type="submit" class="btn btn-primary">Añadir Nota</button>
-                    </form>
+                    <?php
+                    $sqlMaterias = "SELECT m.id_materia as materia, m.nom_materia, n.id_alumno,n.id_materia
+                     FROM tbl_materias m
+                     INNER JOIN tbl_cursos c ON m.id_curso = c.id_curso
+                     INNER JOIN tbl_alumnos a ON a.id_curso = c.id_curso
+                     LEFT JOIN tbl_notas n ON m.id_materia = n.id_materia AND n.id_alumno = ?
+                     WHERE a.id_alumno = ?
+                     AND n.id_nota IS NULL;";
+                    $stmtMaterias = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmtMaterias, $sqlMaterias);
+                    mysqli_stmt_bind_param($stmtMaterias, "ii", $id, $id);
+                    mysqli_stmt_execute($stmtMaterias);
+                    $materias = mysqli_stmt_get_result($stmtMaterias);
+                    $materia = mysqli_fetch_assoc($materias);
+                    mysqli_stmt_close($stmtMaterias);
+                    if ($materia > 1) {
+                    ?>
+                        <form action="./añadir.php" method="post">
+                            <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($infoAlumno['nom_alu']); ?>">
+                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+                            <button type="submit" class="btn btn-primary">Añadir Nota</button>
+                        </form>
+                    <?php
+                    }
+                    ?>
                 </div>
 
                 <div class="card shadow-sm">
@@ -54,9 +93,10 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
                             </thead>
                             <tbody>
                                 <?php
+                                // Consulta para imprimir las notas
                                 $sql = "SELECT n.*, m.nom_materia FROM tbl_notas n 
-                                      INNER JOIN tbl_materias m ON n.id_materia = m.id_materia 
-                                      WHERE n.id_alumno = ?";
+                                  INNER JOIN tbl_materias m ON n.id_materia = m.id_materia 
+                                  WHERE n.id_alumno = ?";
                                 $stmt = mysqli_stmt_init($conn);
                                 mysqli_stmt_prepare($stmt, $sql);
                                 mysqli_stmt_bind_param($stmt, "i", $id);
@@ -73,8 +113,6 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
                                             <td>
                                                 <form action="./editar.php" method="post" class="d-inline">
                                                     <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($nota['id_nota']); ?>">
-                                                    <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
-                                                    <input type="hidden" name="id_alumno" value="<?php echo htmlspecialchars($id); ?>">
                                                     <button type="submit" class="btn btn-info btn-sm">Editar</button>
                                                 </form>
                                                 <form action="./procesos/eliminar.php" method="post" class="d-inline">
