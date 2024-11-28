@@ -16,6 +16,7 @@ $id_alumno = $_POST['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Alumno</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="../js/validaciones.js"></script>
 </head>
 
 <body class="bg-light">
@@ -57,35 +58,35 @@ $id_alumno = $_POST['id'];
                     <div class="row flex-row">
                         <div class="col-6 col-md-12 mb-2">
                             <label for="dni_alu" class="form-label">DNI</label>
-                            <input type="text" id="dni_alu" name="dni_alu" class="form-control" value="<?php echo $dato['dni_alu']; ?>" required>
+                            <input type="text" id="dni_alu" name="dni_alu" class="form-control" value="<?php echo $dato['dni_alu']; ?>" >
                         </div>
 
                         <div class="col-6 col-md-12 mb-2">
                             <label for="nom_alu" class="form-label">Nombre</label>
-                            <input type="text" id="nom_alu" name="nom_alu" class="form-control" value="<?php echo $dato['nom_alu']; ?>" required>
+                            <input type="text" id="nom_alu" name="nom_alu" class="form-control" value="<?php echo $dato['nom_alu']; ?>" >
                         </div>
                     </div>
 
                     <div class="row flex-row">
                         <div class="col-6 col-md-12 mb-2">
                             <label for="cognom1_alu" class="form-label">Primer Apellido</label>
-                            <input type="text" id="cognom1_alu" name="cognom1_alu" class="form-control" value="<?php echo $dato['cognom1_alu']; ?>" required>
+                            <input type="text" id="cognom1_alu" name="cognom1_alu" class="form-control" value="<?php echo $dato['cognom1_alu']; ?>" >
                         </div>
 
                         <div class="col-6 col-md-12 mb-2">
                             <label for="cognom2_alu" class="form-label">Segundo Apellido</label>
-                            <input type="text" id="cognom2_alu" name="cognom2_alu" class="form-control" value="<?php echo $dato['cognom2_alu']; ?>" required>
+                            <input type="text" id="cognom2_alu" name="cognom2_alu" class="form-control" value="<?php echo $dato['cognom2_alu']; ?>" >
                         </div>
                     </div>
 
                     <div class="mb-2">
                         <label for="telf_alu" class="form-label">Teléfono</label>
-                        <input type="text" id="telf_alu" name="telf_alu" class="form-control" value="<?php echo $dato['telf_alu']; ?>" required>
+                        <input type="text" id="telf_alu" name="telf_alu" class="form-control" value="<?php echo $dato['telf_alu']; ?>" >
                     </div>
 
                     <div class="mb-2">
                         <label for="email_alu" class="form-label">Email</label>
-                        <input type="email" id="email_alu" name="email_alu" class="form-control" value="<?php echo $dato['email_alu']; ?>" required>
+                        <input type="email" id="email_alu" name="email_alu" class="form-control" value="<?php echo $dato['email_alu']; ?>" >
                     </div>
 
                     <div class="mb-2 col-12">

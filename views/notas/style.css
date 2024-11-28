@@ -1,17 +1,17 @@
-        nav {
-            height: 80px;
-            /* Aumentar altura de la barra */
-            display: flex;
-            align-items: center;
-            /* Centrar contenido verticalmente */
-        }
+nav {
+    height: 80px;
+    /* Aumentar altura de la barra */
+    display: flex;
+    align-items: center;
+    /* Centrar contenido verticalmente */
+}
 
-        .form-container {
-            margin-top: 20px;
-            /* Separación del formulario respecto al nav */
-        }
+.form-container {
+    margin-top: 20px;
+    /* Separación del formulario respecto al nav */
+}
 
-        .error-message {
-            color: red;
-            font-size: 14px;
-        }
+.error-message {
+    color: red;
+    font-size: 14px;
+}

@@ -24,7 +24,7 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ver Notas</title>
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="./style.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
 
@@ -113,6 +113,9 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
                                             <td>
                                                 <form action="./editar.php" method="post" class="d-inline">
                                                     <input type="hidden" name="id_nota" value="<?php echo htmlspecialchars($nota['id_nota']); ?>">
+                                                    <input type="hidden" name="id_materia" value="<?php echo htmlspecialchars($nota['id_materia']); ?>">
+                                                    <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
+                                                    <input type="hidden" name="id_alumno" value="<?php echo htmlspecialchars($id); ?>">
                                                     <button type="submit" class="btn btn-info btn-sm">Editar</button>
                                                 </form>
                                                 <form action="./procesos/eliminar.php" method="post" class="d-inline">
