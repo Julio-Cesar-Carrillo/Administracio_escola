@@ -1,7 +1,10 @@
 <?php
 
 session_start();
-
+if (!isset($_POST['id']) && !isset($_POST['id_alumno'])) {
+    header('location:./index.php');
+    exit();
+}
 include './procesos/conexion.php';
 $id = $_POST['id'];
 ?>
@@ -12,6 +15,8 @@ $id = $_POST['id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Añadir Nota</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -34,9 +39,7 @@ $id = $_POST['id'];
                             <input type="hidden" name="id" value="<?php echo $id ?>">
                             <button type="submit" class="btn btn-primary me-2 btn-sm">Volver</button>
                         </form>
-                        <form action="./procesos/logout.php" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                        </form>
+                        <a href="../procesos/logout.php" class="btn btn-danger btn-sm">Logout</a>
                     </div>
                 </div>
             </nav>
@@ -79,12 +82,17 @@ $id = $_POST['id'];
                         <input type="text" step="0.01" name="nota" id="nota" class="form-control">
                         <span id="error-nota" style="color: red;"></span>
                     </div>
+                    <span id="error-materia" style="color: red;">
+                        <?php
+                        echo isset($_POST['errormateria']) && isset($_POST['errornota']) ? "Comprueba los datos o intentalo más tarde" : "";
+                        ?>
+                    </span>
                     <button type="submit" class="btn btn-success w-100">Crear Nota</button>
                 </form>
             </div>
         </div>
     </div>
 </body>
-<script src="./valida.js"></script>
+<script src="./validaciones/validaañadir.js"></script>
 
 </html>

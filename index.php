@@ -22,8 +22,6 @@
                     <input type="text" id="user" name="user" onblur="validarUser()" value="<?php
                                                                                             if (isset($_GET['user'])) {
                                                                                                 echo $_GET['user'];
-                                                                                            } else {
-                                                                                                echo 'Juan';
                                                                                             }
                                                                                             ?>">
                     <p id="error_user" class="error" style="color:red;">
@@ -39,8 +37,6 @@
                     <input type="password" id="pwd" name="pwd" onblur="validarPwd()" value="<?php
                                                                                             if (isset($_GET['pwd'])) {
                                                                                                 echo $_GET['pwd'];
-                                                                                            } else {
-                                                                                                echo "asdASD123";
                                                                                             }
                                                                                             ?>">
                     <p id="error_pwd" class="error" style="color:red;">

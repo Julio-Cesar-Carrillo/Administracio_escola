@@ -36,13 +36,28 @@ document.addEventListener("DOMContentLoaded", function () {
     // Validar DNI: 8 números seguidos de 1 letra
     const validateDNI = (input) => {
         const value = input.value.trim();
-        const regex = /^\d{8}[A-Za-z]$/;
-
+        const regex = /^\d{8}[A-Za-z]$/; // 8 números seguidos de 1 letra
+    
         if (!regex.test(value)) {
             createErrorMessage(input, "El DNI debe tener 8 números seguidos de 1 letra.");
             return false;
         }
-
+    
+        // Separar los números y la letra
+        const numberPart = parseInt(value.slice(0, 8), 10);
+        const letterPart = value.slice(8).toUpperCase();
+    
+        // Letras válidas del DNI
+        const validLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
+    
+        // Calcular la letra correcta
+        const calculatedLetter = validLetters[numberPart % 23];
+    
+        if (letterPart !== calculatedLetter) {
+            createErrorMessage(input, `El dni no es correcto.`);
+            return false;
+        }
+    
         clearErrorMessage(input);
         return true;
     };
