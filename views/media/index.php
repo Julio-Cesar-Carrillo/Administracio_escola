@@ -25,7 +25,7 @@ include '../procesos/conexion.php';
                 </div>
             </div>
         </nav>
-        
+
         <div class="card shadow-sm">
             <div class="card-body">
                 <table class="table table-dark table-hover">
@@ -54,9 +54,11 @@ include '../procesos/conexion.php';
                         JOIN tbl_cursos c ON m.id_curso = c.id_curso
                         GROUP BY c.nom_curso, m.nom_materia
                         ORDER BY c.nom_curso, m.nom_materia;";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                        $stmtmedia = mysqli_stmt_init($conn);
+                        mysqli_stmt_prepare($stmtmedia, $sql);
+                        mysqli_stmt_execute($stmtmedia);
+                        $result = mysqli_stmt_get_result($stmtmedia);
+                        mysqli_stmt_close($stmtmedia);
 
                         if ($result->num_rows > 0) {
                             foreach ($result as $dato) {
