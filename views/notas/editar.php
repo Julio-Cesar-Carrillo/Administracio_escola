@@ -64,7 +64,7 @@ if (!isset($_POST['id_nota']) || !isset($_POST['id_alumno'])) {
 
             <!-- Contenido principal -->
             <div class="form-container card shadow-sm p-4 rounded">
-                <h3 class="card-title text-center">Añadir Nota para <?php echo htmlspecialchars($_POST['nom_alu']); ?></h3>
+                <h3 class="card-title text-center">Editar Nota para <?php echo htmlspecialchars($_POST['nom_alu']); ?></h3>
                 <form action="./procesos/actualizar.php" id="frmeditarnota" method="post">
                     <div class="mb-3">
                         <label for="materia" class="form-label">Materia</label>

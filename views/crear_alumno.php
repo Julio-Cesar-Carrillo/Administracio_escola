@@ -63,6 +63,7 @@
                     <div class="mb-2 col-12">
                         <label for="curso" class="form-label">Curso</label>
                         <select name="id_curso" class="form-select">
+                            <option value="">Selecciona un curso</option>
                             <?php
                             include './procesos/conexion.php';
                             include './datos/cursos.php';
