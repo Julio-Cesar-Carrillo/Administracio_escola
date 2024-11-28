@@ -146,7 +146,7 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
             event.preventDefault();  
 
             Swal.fire({
-                title: '¿Quieres eliminar esta nota',
+                title: '¿Quieres eliminar esta nota?',
                 text: "¡No podrás deshacer esta acción!",
                 icon: 'warning',
                 showCancelButton: true,
