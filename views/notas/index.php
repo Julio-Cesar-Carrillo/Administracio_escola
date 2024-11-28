@@ -25,6 +25,7 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ver Notas</title>
         <link rel="stylesheet" href="./style.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
 
@@ -118,7 +119,7 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
                                                     <input type="hidden" name="id_alumno" value="<?php echo htmlspecialchars($id); ?>">
                                                     <button type="submit" class="btn btn-info btn-sm">Editar</button>
                                                 </form>
-                                                <form action="./procesos/eliminar.php" method="post" class="d-inline">
+                                                <form action="./procesos/eliminar.php" method="post" class="d-inline" onsubmit="confirmarEliminacion(event)">
                                                     <input type="hidden" name="id_materia" value="<?php echo htmlspecialchars($nota['id_materia']); ?>">
                                                     <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($_POST['nom_alu']); ?>">
                                                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
@@ -140,6 +141,26 @@ if (!isset($_POST['id']) || !isset($_SESSION['nom_prof'])) {
         </div>
     </body>
 
+    <script>
+        function confirmarEliminacion(event) {
+            event.preventDefault();  
+
+            Swal.fire({
+                title: '¿Quieres eliminar esta',
+                text: "¡No podrás deshacer esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.submit();
+                }
+            });
+        }
+    </script>
+
     </html>
 <?php
 }
+?>
