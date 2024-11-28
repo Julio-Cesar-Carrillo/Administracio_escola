@@ -158,10 +158,11 @@ include './procesos/conexion.php';
                                                 <button type="submit" class="btn btn-primary btn-sm">Editar</button>
                                             </form>
                                             <form action="./procesos/eliminar.php" method="post" class="d-inline" onsubmit="confirmarEliminacion(event, '<?php echo htmlspecialchars($alumno['nom_alu']); ?>')">
-    <input type="hidden" name="Link" value="<?php $enlace_actual = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; echo $enlace_actual; ?>">
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
-    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-</form>
+                                                <input type="hidden" name="Link" value="<?php $enlace_actual = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                                                                                        echo $enlace_actual; ?>">
+                                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
+                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </form>
 
                                         </td>
                                     </tr>
@@ -180,7 +181,13 @@ include './procesos/conexion.php';
                     <?php
                     if ($num_total_rows > 0) {
                         for ($i = 1; $i <= $total_pages; $i++) {
-                            echo '<a href="?page=' . $i . '" class="btn btn-secondary btn-sm mx-1">' . $i . '</a>';
+                            $query_params = $_GET; // Obtener los parámetros actuales
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                $query_params['page'] = $i; // Establecer el número de página
+                                $url = '?' . http_build_query($query_params); // Construir la URL con los parámetros
+                                $active_class = $i == $page ? 'btn-primary' : 'btn-secondary'; // Clase para la página activa
+                                echo '<a href="' . $url . '" class="btn ' . $active_class . ' btn-sm mx-1">' . $i . '</a>';
+                            }
                         }
                     }
                     ?>
@@ -190,26 +197,25 @@ include './procesos/conexion.php';
     </div>
 </body>
 <script>
-       // Función para confirmar la eliminación con SweetAlert
-function confirmarEliminacion(event, nombre) {
-    event.preventDefault();  // Evitar el envío inmediato del formulario
+    // Función para confirmar la eliminación con SweetAlert
+    function confirmarEliminacion(event, nombre) {
+        event.preventDefault(); // Evitar el envío inmediato del formulario
 
-    // Mostrar SweetAlert de confirmación
-    Swal.fire({
-        title: '¿Estás seguro de eliminar a ' + nombre + '?',
-        text: "¡No podrás deshacer esta acción!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Si el usuario confirma, enviar el formulario
-            event.target.submit();
-        }
-    });
-}
-
-    </script>
+        // Mostrar SweetAlert de confirmación
+        Swal.fire({
+            title: '¿Estás seguro de eliminar a ' + nombre + '?',
+            text: "¡No podrás deshacer esta acción!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario
+                event.target.submit();
+            }
+        });
+    }
+</script>
 
 </html>
