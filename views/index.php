@@ -19,15 +19,12 @@ include './procesos/conexion.php';
 
 <body>
     <div class="container my-5">
-        <!-- Barra de navegación -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Sistema de Alumnos</a>
+                <a class="navbar-brand" href="./">Sistema de Alumnos</a>
                 <div class="d-flex align-items-center">
                     <span class="navbar-text text-white me-3">¡Hola, <?php echo htmlspecialchars($_SESSION['nom_prof']); ?>!</span>
-                    <form action="./procesos/logout.php" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                    </form>
+                    <a href="./procesos/logout.php" class="btn btn-danger btn-sm">Logout</a>
                 </div>
             </div>
         </nav>
@@ -39,9 +36,9 @@ include './procesos/conexion.php';
                     <div class="col-md-2">
                         <label for="num_resultados" class="form-label">Resultados por página:</label>
                         <select name="num_resultados" id="num_resultados" class="form-select">
+                            <option value="3" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 3 ? "selected" : ""; ?>>3</option>
                             <option value="5" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 5 ? "selected" : ""; ?>>5</option>
                             <option value="10" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 10 ? "selected" : ""; ?>>10</option>
-                            <option value="15" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 15 ? "selected" : ""; ?>>15</option>
                             <option value="20" <?php echo isset($_GET['num_resultados']) && $_GET['num_resultados'] == 20 ? "selected" : ""; ?>>20</option>
                         </select>
                     </div>
@@ -69,7 +66,8 @@ include './procesos/conexion.php';
                     <div class="col-md-12 text-end">
                         <button type="submit" class="btn btn-success me-2">Buscar</button>
                         <a href="./index.php" class="btn btn-secondary me-2">Limpiar</a>
-                        <a href="./crear_alumno.php" class="btn btn-primary">Nuevo Alumno</a>
+                        <a href="./media" class="btn btn-info me-2">Media de notas</a>
+                        <a href="./crear_alumno.php" class="btn btn-primary me-2">Nuevo Alumno</a>
                     </div>
                 </form>
             </div>
@@ -90,7 +88,7 @@ include './procesos/conexion.php';
                     </thead>
                     <tbody>
                         <?php
-                        $num_resultados = isset($_GET['num_resultados']) ? $_GET['num_resultados'] : 5;
+                        $num_resultados = isset($_GET['num_resultados']) ? $_GET['num_resultados'] : 3;
 
                         // Consulta para contar registros totales
                         $sql = "SELECT COUNT(*) as total_alumnos 
@@ -138,7 +136,6 @@ include './procesos/conexion.php';
 
                                 $sql .= " ORDER BY a.id_alumno ASC LIMIT $start, $num_resultados";
                                 $alumnos = mysqli_query($conn, $sql);
-
                                 foreach ($alumnos as $alumno) {
                         ?>
                                     <tr>
@@ -147,16 +144,21 @@ include './procesos/conexion.php';
                                         <td><?php echo htmlspecialchars($alumno['nom_curso']); ?></td>
                                         <td>
                                             <form action="./notas/index.php" method="post">
+                                                <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($alumno['nom_alu']); ?>">
                                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
                                                 <button type="submit" class="btn btn-info btn-sm">Notas</button>
                                             </form>
                                         </td>
+
                                         <td>
                                             <form action="./editar.php" method="post" class="d-inline">
+                                                <input type="hidden" name="nom_alu" value="<?php echo htmlspecialchars($alumno['nom_alu']); ?>">
                                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
                                                 <button type="submit" class="btn btn-primary btn-sm">Editar</button>
                                             </form>
                                             <form action="./procesos/eliminar.php" method="post" class="d-inline">
+                                                <input type="hidden" name="Link" value="<?php $enlace_actual = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                                                                                        echo $enlace_actual; ?>">
                                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alumno']); ?>">
                                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                             </form>
@@ -177,7 +179,7 @@ include './procesos/conexion.php';
                     <?php
                     if ($num_total_rows > 0) {
                         for ($i = 1; $i <= $total_pages; $i++) {
-                            echo '<a href="?page=' . $i . '&num_resultados=' . $num_resultados . '" class="btn btn-secondary btn-sm mx-1">' . $i . '</a>';
+                            echo '<a href="?page=' . $i . '" class="btn btn-secondary btn-sm mx-1">' . $i . '</a>';
                         }
                     }
                     ?>

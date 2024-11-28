@@ -1,6 +1,9 @@
 <?php
 include './conexion.php';
 $id_alumno = $_POST['id'];
+$link = $_POST['Link'];
+// echo $link;
+// exit();
 try {
     // Iniciar transacción
     mysqli_autocommit($conn, false);
@@ -19,10 +22,11 @@ try {
     mysqli_stmt_bind_param($stmt, "i", $id_alumno);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    header('Location: ../');
 
     // Commit de la transacción
     mysqli_commit($conn);
-    header('location:../');
+    header('location:' . $link . '');
 } catch (Exception $e) {
     mysqli_rollback($conn);
     echo $e->getMessage();

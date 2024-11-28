@@ -2,7 +2,11 @@
 $id = $_POST['id'];
 $id_materia = $_POST['id_materia'];
 $nota = $_POST['nota'];
+
+include '../validaciones/validacionañadir.php';
+
 include './conexion.php';
+
 try {
     $sql = "INSERT INTO tbl_notas (id_alumno, id_materia, nota) VALUES (?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
@@ -13,6 +17,7 @@ try {
         mysqli_close($conn);
 ?>
         <form action="../index.php" method="POST" name="formulario">
+            <input type="hidden" name="nom_alu" value="<?php echo $_POST['nom_alu']; ?>">
             <input type="hidden" name="id" value="<?php echo $id ?>">
         </form>
         <script language="JavaScript">
