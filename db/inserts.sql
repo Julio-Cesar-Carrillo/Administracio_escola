@@ -23,12 +23,24 @@ INSERT INTO tbl_cursos (codi_curso, nom_curso, id_profe) VALUES
 
 
 INSERT INTO tbl_alumnos (dni_alu, nom_alu, cognom1_alu, cognom2_alu, telf_alu, email_alu, id_curso) VALUES 
-('11111111A', 'Arnau', 'Puig', 'Gómez', '600111222', 'arnau.puig@eso.com', 1),
-('22222222B', 'Clara', 'Riera', 'Fernández', '600333444', 'clara.riera@eso.com', 2),
-('33333333C', 'Pau', 'Martínez', 'López', '600555666', 'pau.martinez@eso.com', 3),
-('44444444D', 'Núria', 'Garriga', 'Pérez', '600777888', 'nuria.garriga@eso.com', 4),
-('55555555E', 'Joan', 'Font', 'Rubio', '600999000', 'joan.font@bachillerat.com', 5),
-('66666666F', 'Marta', 'Vilà', 'Garcia', '601111222', 'marta.vila@bachillerat.com', 6);
+('45967595W', 'Arnau', 'Puig', 'Gómez', '600111222', 'arnau.puig@eso.com', 1),
+('16631930D', 'Clara', 'Riera', 'Fernández', '600222333', 'clara.riera@eso.com', 2),
+('22528009S', 'Pau', 'Martínez', 'López', '600333444', 'pau.martinez@eso.com', 3),
+('49715351T', 'Núria', 'Garriga', 'Pérez', '600444555', 'nuria.garriga@eso.com', 4),
+('07130320K', 'Joan', 'Font', 'Rubio', '600555666', 'joan.font@bachillerat.com', 5),
+('28351107L', 'Marta', 'Vilà', 'Morales', '600666777', 'marta.vila@eso.com', 1),
+('72602652R', 'Eugenia', 'Vilà', 'Domi', '600777888', 'eugenia.vila@eso.com', 2),
+('18082424P', 'Pepa', 'Vilà', 'Machado', '600888999', 'pepa.vila@bachillerat.com', 3),
+('97291966B', 'Gina', 'Vilà', 'Garrido', '601000111', 'gina.vila@bachillerat.com', 4),
+('74719940R', 'Mario', 'Vilà', 'Pimienta', '601111222', 'mario.vila@bachillerat.com', 5),
+('43929168L', 'Morata', 'Vilà', 'Parejo', '601222333', 'morata.vila@bachillerat.com', 1),
+('63160813F', 'Joel', 'Puerto', 'Alcocer', '601333444', 'joel.puerto@bachillerat.com', 2),
+('28351107L', 'Leo', 'Mateucci', 'Messi', '601444555', 'leo.mateucci@bachillerat.com', 3),
+('42498732E', 'Lia', 'Cantos', 'Monroe', '601555666', 'lia.cantos@bachillerat.com', 4),
+('55194476L', 'Deiby', 'Buenano', 'Pacheco', '601666777', 'deiby.buenano@bachillerat.com', 6),
+('52316776X', 'Carlos', 'Buenano', 'Pacheco', '601777888', 'carlos.buenano@bachillerat.com', 6),
+('93803723V', 'Luis', 'Buenano', 'Pacheco', '601888999', 'luis.buenano@bachillerat.com', 6);
+
 
 INSERT INTO tbl_materias (id_curso, nom_materia) VALUES 
 -- ESO 1
@@ -74,38 +86,36 @@ INSERT INTO tbl_materias (id_curso, nom_materia) VALUES
 (6, 'Llengua Catalana i Literatura');
 
 
-INSERT INTO tbl_notas (id_alumno, id_materia, nota) VALUES 
--- ESO 1
-(1, 1, 7.5), -- Arnau a Matemàtiques
-(1, 2, 8.0), -- Arnau a Llengua Catalana
-(1, 3, 7.0), -- Arnau a Llengua Castellana
-(2, 4, 8.5), -- Clara a Ciències Naturals
-(2, 5, 9.0), -- Clara a Ciències Socials
+-- Notas adicionales para cubrir más alumnos y materias
 
--- ESO 2
-(3, 6, 6.5), -- Pau a Matemàtiques
-(3, 7, 7.0), -- Pau a Llengua Catalana
-(4, 8, 8.5), -- Núria a Llengua Castellana
-(4, 9, 9.0), -- Núria a Educació Física
-(4, 10, 8.0), -- Núria a Tecnologia
-
--- ESO 3
-(5, 11, 9.0), -- Joan a Matemàtiques
-(5, 12, 8.5), -- Joan a Llengua Anglesa
-(5, 13, 7.5), -- Joan a Història i Geografia
-(6, 14, 8.0), -- Marta a Física i Química
-(6, 15, 8.5), -- Marta a Biologia i Geologia
-
--- Batxillerat 1
-(5, 16, 7.5), -- Joan a Matemàtiques I
-(5, 17, 6.5), -- Joan a Física I
-(6, 18, 8.0), -- Marta a Química I
-(6, 19, 7.0), -- Marta a Història del Món Contemporani
-(6, 20, 9.0), -- Marta a Llengua Anglesa
-
--- Batxillerat 2
-(5, 21, 8.0), -- Joan a Matemàtiques II
-(5, 22, 7.0), -- Joan a Física II
-(6, 23, 9.0), -- Marta a Química II
-(6, 24, 8.5), -- Marta a Història de la Filosofia
-(6, 25, 9.5); -- Marta a Llengua Catalana i Literatura
+INSERT INTO tbl_notas (id_alumno, id_materia, nota) VALUES
+    (1, 4, 6.0), -- Arnau a Ciències Naturals
+    (1, 5, 7.0), -- Arnau a Ciències Socials
+    (2, 1, 8.5), -- Clara a Matemàtiques
+    (2, 2, 8.0), -- Clara a Llengua Catalana
+    (2, 3, 7.5), -- Clara a Llengua Castellana
+    (3, 6, 6.0), -- Pau a Matemàtiques
+    (3, 7, 6.5), -- Pau a Llengua Catalana
+    (3, 8, 7.0), -- Pau a Llengua Castellana
+    (3, 9, 8.0), -- Pau a Educació Física
+    (3, 10, 7.5), -- Pau a Tecnologia
+    (4, 11, 8.5), -- Núria a Matemàtiques
+    (4, 12, 8.0), -- Núria a Llengua Anglesa
+    (4, 13, 7.0), -- Núria a Història i Geografia
+    (4, 14, 6.5), -- Núria a Física i Química
+    (4, 15, 7.5), -- Núria a Biologia i Geologia
+    (5, 16, 7.5), -- Joan a Matemàtiques Acadèmiques
+    (5, 17, 8.0), -- Joan a Llengua Catalana
+    (5, 18, 7.0), -- Joan a Llengua Castellana
+    (5, 19, 8.5), -- Joan a Filosofia
+    (5, 20, 7.5), -- Joan a Economia
+    (6, 21, 9.0), -- Marta a Matemàtiques I
+    (6, 22, 8.5), -- Marta a Física I
+    (6, 23, 9.5), -- Marta a Química I
+    (6, 24, 8.5), -- Marta a Història del Món Contemporani
+    (6, 25, 9.0), -- Marta a Llengua Anglesa
+    (7, 26, 6.5), -- Eugenia a Matemàtiques II
+    (7, 27, 7.0), -- Eugenia a Física II
+    (7, 28, 7.5), -- Eugenia a Química II
+    (7, 29, 8.0), -- Eugenia a Història de la Filosofia
+    (7, 30, 8.5); -- Eugenia a Llengua Catalana i Literatura
